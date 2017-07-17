@@ -27,6 +27,7 @@ public class FastDFSService {
 	}
 
 	public static void check() {
+		System.out.println("ClientGlobal.configInfo(): " + ClientGlobal.configInfo());
 		if (dfsService == null) {
 			throw new RuntimeException("dfs service initialization was failed for some reasons");
 		}

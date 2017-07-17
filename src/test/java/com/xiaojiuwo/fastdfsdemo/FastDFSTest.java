@@ -21,7 +21,7 @@ import com.xiaojiuwo.fastdfsdemo.service.FastDFSService;
 public class FastDFSTest {
 
 	@Test
-	public void uploadAndDownloadTest() throws IOException, MyException {
+	public void uploadAndDownloadTest() throws IOException, MyException, InterruptedException {
 		Resource resource = new ClassPathResource("WX20170714-164859.png");
 		ByteArrayOutputStream swapStream = new ByteArrayOutputStream();
 		InputStream inputStream = resource.getInputStream();
@@ -32,8 +32,12 @@ public class FastDFSTest {
 		}
 		buff = swapStream.toByteArray();
 		String filePath = FastDFSService.upload(buff, "png");
+
 		System.out.println(filePath);
+		Thread.sleep(2000);// 集群同步时间
+
 		byte[] downloadbuff = FastDFSService.download(filePath);
+
 		assertArrayEquals(buff, downloadbuff);
 	}
 
