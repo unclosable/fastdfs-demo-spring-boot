@@ -1,5 +1,9 @@
 buildscript {
-	ext { springBootVersion = '1.5.4.RELEASE' }
+	ext {
+		springBootVersion = '1.5.4.RELEASE'
+
+		niftyVersion = '0.23.0'
+	}
 	repositories { mavenCentral() }
 	dependencies { classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}") }
 }
@@ -11,11 +15,25 @@ apply plugin: 'org.springframework.boot'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = 1.8
 
-repositories { mavenCentral() }
-
+repositories {
+	mavenLocal()
+	maven(){
+		url "http://repository.rfddc.com/nexus/content/groups/public/"
+	}
+	mavenCentral()
+}
+dependencyManagement {
+	imports {
+		mavenBom "org.springframework.cloud:spring-cloud-dependencies:Dalston.SR1"
+	}
+}
 
 dependencies {
 	compile('org.springframework.boot:spring-boot-starter')
+	compile "org.springframework.cloud:spring-cloud-starter-sleuth"
+	compile "org.springframework.cloud:spring-cloud-starter-zipkin"
+	compile('com.itiaoling:micro-client-starter:0.3.2-SNAPSHOT')
 	compile fileTree(dir:'lib',include:'*.jar')
+
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 }

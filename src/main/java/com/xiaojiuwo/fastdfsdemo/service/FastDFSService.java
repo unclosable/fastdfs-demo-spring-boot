@@ -25,7 +25,6 @@ public class FastDFSService {
 		}
 		dfsService = this;
 	}
-
 	public static void check() {
 		System.out.println("ClientGlobal.configInfo(): " + ClientGlobal.configInfo());
 		if (dfsService == null) {
